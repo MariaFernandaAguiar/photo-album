@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 import { Button, Card, Col, Row, Spinner } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { usePhotos } from "../../contexts/PhotoContext";
 
-export default function Gallery() {
+export default function Galeria() {
   const { photos, loading, listPhotos, page, hasMore } = usePhotos();
 
   useEffect(() => {
@@ -16,20 +17,22 @@ export default function Gallery() {
   };
 
   const getImageUrl = (id, width = 400, height = 300) =>
-    `${process.env.REACT_APP_PHOTO_BY_ID}/${id}/${width}/${height}`;
+    `${process.env.REACT_APP_PHOTOS_API_BASE_URL}/id/${id}/${width}/${height}`;
 
   return (
     <>
       <h1>Galeria de Fotos</h1>
       <Row>
-        {photos?.map((photo) => (
-          <Col md={4} key={photo.id} className="mb-4">
-            <Card>
-              <Card.Img variant="top" src={getImageUrl(photo.id)} />
-              <Card.Body>
-                <Card.Title>{photo.author}</Card.Title>
-              </Card.Body>
-            </Card>
+        {photos?.map((photo, index) => (
+          <Col md={4} key={`${photo.id}-${index}`} className="mb-4">
+            <Link to={`/detalhes/${photo.id}`} key={`${photo.id}-${index}`}>
+              <Card>
+                <Card.Img variant="top" src={getImageUrl(photo.id)} />
+                <Card.Body>
+                  <Card.Title>{photo.author}</Card.Title>
+                </Card.Body>
+              </Card>
+            </Link>
           </Col>
         ))}
       </Row>

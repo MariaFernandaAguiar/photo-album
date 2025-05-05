@@ -15,8 +15,8 @@ function App() {
             <Nav.Link as={Link} to="/">
               Home
             </Nav.Link>
-            <Nav.Link as={Link} to="/gallery">
-              Gallery
+            <Nav.Link as={Link} to="/galeria">
+              Galeria
             </Nav.Link>
           </Nav>
         </Container>

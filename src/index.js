@@ -5,7 +5,6 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import { PhotoProvider } from "./contexts/PhotoContext";
 import "./index.css";
-import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -17,5 +16,3 @@ root.render(
     </PhotoProvider>
   </React.StrictMode>
 );
-
-// reportWebVitals(console.log);
