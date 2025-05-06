@@ -6,7 +6,7 @@ import AppRoutes from "./routes";
 function App() {
   return (
     <>
-      <Navbar bg="dark" variant="dark" expand="lg">
+      <Navbar style={{ height: "100px" }} bg="dark" variant="dark" expand="lg">
         <Container>
           <Navbar.Brand as={Link} to="/">
             PhotoAlbum
@@ -21,7 +21,7 @@ function App() {
           </Nav>
         </Container>
       </Navbar>
-      <Container className="mt-4">
+      <Container style={{ padding: "40px" }} className="mt-4">
         <AppRoutes />
       </Container>
     </>

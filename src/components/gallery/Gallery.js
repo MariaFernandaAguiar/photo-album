@@ -25,7 +25,11 @@ export default function Galeria() {
       <Row>
         {photos?.map((photo, index) => (
           <Col md={4} key={`${photo.id}-${index}`} className="mb-4">
-            <Link to={`/detalhes/${photo.id}`} key={`${photo.id}-${index}`}>
+            <Link
+              style={{ textDecoration: "none" }}
+              to={`/detalhes/${photo.id}`}
+              key={`${photo.id}-${index}`}
+            >
               <Card>
                 <Card.Img variant="top" src={getImageUrl(photo.id)} />
                 <Card.Body>
