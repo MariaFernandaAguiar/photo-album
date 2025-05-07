@@ -41,7 +41,6 @@ const PhotoDetails = () => {
               href={currentImage?.download_url}
               target="_blank"
               rel="noopener noreferrer"
-              variant="success"
             >
               Baixar Imagem
             </Button>

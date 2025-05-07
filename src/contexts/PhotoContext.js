@@ -49,7 +49,7 @@ export const PhotoProvider = ({ children }) => {
   const listPhotos = useCallback((page = 1, limit = 12) => {
     dispatch({ type: PhotoActionTypes.SET_LOADING, payload: true });
 
-    const url = `${process.env.REACT_APP_PHOTOS_API_BASE_URL}/v2/list?page=${page}&limit=${limit}`;
+    const url = `https://picsum.photos/v2/list?page=${page}&limit=${limit}`;
     const xhr = new XMLHttpRequest();
     xhr.open("GET", url);
     xhr.onreadystatechange = () => {
@@ -70,8 +70,8 @@ export const PhotoProvider = ({ children }) => {
   const getImageDetails = useCallback((id) => {
     dispatch({ type: PhotoActionTypes.SET_LOADING, payload: true });
 
-    const apiUrl = `${process.env.REACT_APP_PHOTOS_API_BASE_URL}/id/${id}/info`;
-    const infoUrl = `${process.env.REACT_APP_PHOTOS_API_BASE_URL}/seed/picsum/info`;
+    const apiUrl = `https://picsum.photos/id/${id}/info`;
+    const infoUrl = `https://picsum.photos/seed/picsum/info`;
 
     const xhrMain = new XMLHttpRequest();
     xhrMain.open("GET", apiUrl);

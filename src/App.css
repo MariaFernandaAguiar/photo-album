@@ -1,0 +1,31 @@
+:root {
+  --bs-primary: #d63384;
+  --bs-secondary: #f8d7da;
+  --bs-light: #fce4ec;
+  --bs-dark: #880e4f;
+  --bs-body-bg: #fff0f5;
+  --bs-body-color: #4a154b;
+}
+
+.btn-primary {
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
+}
+
+.btn-primary:hover {
+  background-color: #c2185b;
+  border-color: #c2185b;
+}
+
+.card {
+  border-color: var(--bs-primary);
+}
+
+.card-title {
+  color: var(--bs-primary);
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: var(--bs-light);
+  color: var(--bs-dark);
+}

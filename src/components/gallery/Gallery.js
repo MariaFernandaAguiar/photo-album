@@ -17,7 +17,7 @@ export default function Galeria() {
   };
 
   const getImageUrl = (id, width = 400, height = 300) =>
-    `${process.env.REACT_APP_PHOTOS_API_BASE_URL}/id/${id}/${width}/${height}`;
+    `https://picsum.photos/id/${id}/${width}/${height}`;
 
   return (
     <>

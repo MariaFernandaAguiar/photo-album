@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import "./App.css";
 import AppRoutes from "./routes";
 
 function App() {
@@ -11,7 +12,7 @@ function App() {
           <Navbar.Brand as={Link} to="/">
             PhotoAlbum
           </Navbar.Brand>
-          <Nav className="me-auto">
+          <Nav>
             <Nav.Link as={Link} to="/">
               Home
             </Nav.Link>
