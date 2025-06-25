@@ -1,8 +1,8 @@
 const express = require("express");
 const controller = require("./controllers/loginController");
 const loginRouter = express.Router();
-const { verifyToken } = require("../midllewares/verifyToken");
-const { validateLoginId } = require("../config/validators/LoginValidator");
+const { validateLoginId } = require("./validators/LoginValidator");
+const { verifyToken } = require("./midllewares/verifyToken");
 
 loginRouter.post("/", controller.login);
 loginRouter.get("/:loginId", verifyToken, validateLoginId, controller.findOne);

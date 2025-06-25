@@ -21,7 +21,7 @@ app.use(cors());
 
 app.use(
   session({
-    secret: "minha-chave-secreta",
+    secret: process.env.JWT_SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false }, // "secure: false" deve ser usado em desenvolvimento. Em produção, defina como "true" para usar HTTPS.
