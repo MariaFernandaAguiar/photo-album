@@ -24,11 +24,7 @@ const Login = database.define(
     login_photo_url: {
       type: Sequelize.STRING,
       allowNull: true,
-    },
-    login_count: {
-      type: Sequelize.INTEGER,
-      allowNull: true,
-    },
+    }
   },
   {
     timestamps: false,

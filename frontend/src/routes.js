@@ -4,8 +4,8 @@ import Home from "./components/home/Home";
 import NotFound from "./components/notFound/NotFound";
 import PhotoDetail from "./components/photoDetail/PhotoDetail";
 import Login from "./components/login/Login";
+import Register from "./components/register/Register";
 
-// Componente de rota privada
 const PrivateRoute = ({ children }) => {
   const token = localStorage.getItem("accessToken");
   return token ? children : <Navigate to="/login" replace />;
@@ -15,7 +15,8 @@ export default function AppRoutes() {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
-      
+      <Route path="/cadastro" element={<Register />} />
+
       <Route
         path="/"
         element={

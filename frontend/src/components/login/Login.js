@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { Button, Card, Form } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 
 export default function Login() {
@@ -15,10 +15,13 @@ export default function Login() {
     setErrorMsg("");
 
     try {
-      const response = await axios.post("/api/login", {
-        loginEmail: email,
-        loginPassword: password,
-      });
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/login`,
+        {
+          loginEmail: email,
+          loginPassword: password,
+        }
+      );
 
       const { accessToken, loginName } = response.data;
 
@@ -71,6 +74,12 @@ export default function Login() {
             >
               Entrar
             </Button>
+          </div>
+
+          <div style={{ marginTop: "20px" }} className="text-center">
+            <Link to="/cadastro" className="login-link">
+              Criar nova conta
+            </Link>
           </div>
         </Form>
       </Card>

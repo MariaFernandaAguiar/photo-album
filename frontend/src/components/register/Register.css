@@ -25,7 +25,6 @@
 
 .login-button-container {
   text-align: center;
-  margin-top: 30px;
 }
 
 .login-button {
@@ -37,14 +36,4 @@
 .login-button:hover {
   background-color: #c2185b;
   border-color: #c2185b;
-}
-
-.login-link {
-  color: var(--bs-dark);
-  text-decoration: none;
-}
-
-.login-link:hover {
-  color: var(--bs-primary);
-  text-decoration: underline;
 }

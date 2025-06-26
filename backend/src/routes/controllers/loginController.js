@@ -39,6 +39,21 @@ exports.findOne = async (req, res) => {
   }
 };
 
+exports.create = async (req, res) => {
+  try {
+    const savedLogin = await Login.create({
+      login_email: req?.body?.login_email,
+      login_password: req?.body?.login_password,
+      login_name: req?.body?.login_name,
+      login_photo_url: req?.body?.login_photoUrl,
+    });
+    return res.status(201).json(savedLogin);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: "Erro ao registrar usuário" });
+  }
+};
+
 exports.update = async (req, res) => {
   let savedLogin = await Login.update(
     {
