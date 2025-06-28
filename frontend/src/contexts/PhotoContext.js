@@ -5,6 +5,7 @@ import {
   useMemo,
   useReducer,
 } from "react";
+import api from "../services/api"; // ajuste o path se necessário
 
 const PhotoActionTypes = {
   SET_LOADING: "SET_LOADING",
@@ -30,7 +31,12 @@ function photoReducer(state, action) {
     case PhotoActionTypes.ADD_PHOTOS:
       return {
         ...state,
-        photos: [...state.photos, ...action.payload],
+        photos: [
+          ...state?.photos?.filter(
+            (p) => !action.payload.find((a) => a.id === p.id)
+          ),
+          ...action.payload,
+        ],
         page: state.page + 1,
         hasMore: action.payload.length > 0,
       };
@@ -46,77 +52,56 @@ function photoReducer(state, action) {
 export const PhotoProvider = ({ children }) => {
   const [state, dispatch] = useReducer(photoReducer, initialState);
 
-  const listPhotos = useCallback((page = 1, limit = 12) => {
+  const listPhotos = useCallback(async (page = 1, limit = 12) => {
     dispatch({ type: PhotoActionTypes.SET_LOADING, payload: true });
 
-    const url = `https://picsum.photos/v2/list?page=${page}&limit=${limit}`;
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", url);
-    xhr.onreadystatechange = () => {
-      if (xhr.readyState === 4) {
-        dispatch({ type: PhotoActionTypes.SET_LOADING, payload: false });
+    try {
+      const loginId = localStorage.getItem("loginId");
+      const { data } = await api.get("/photos", {
+        params: { loginId, page, limit },
+      });
 
-        if (xhr.status === 200) {
-          const data = JSON.parse(xhr.responseText);
-          dispatch({ type: PhotoActionTypes.ADD_PHOTOS, payload: data });
-        } else {
-          console.error("Erro ao buscar fotos");
-        }
-      }
-    };
-    xhr.send();
+      dispatch({ type: PhotoActionTypes.ADD_PHOTOS, payload: data });
+    } catch (error) {
+      console.error("Erro ao buscar fotos:", error);
+    } finally {
+      dispatch({ type: PhotoActionTypes.SET_LOADING, payload: false });
+    }
   }, []);
 
-  const getImageDetails = useCallback((id) => {
+  const getImageDetails = useCallback(async (id) => {
     dispatch({ type: PhotoActionTypes.SET_LOADING, payload: true });
 
-    const apiUrl = `https://picsum.photos/id/${id}/info`;
-    const infoUrl = `https://picsum.photos/seed/picsum/info`;
+    try {
+      const { data } = await api.get(`/photos/${id}`);
+      dispatch({
+        type: PhotoActionTypes.SET_CURRENT_IMAGE,
+        payload: data,
+      });
+    } catch (error) {
+      console.error("Erro ao buscar detalhes da imagem:", error);
+    } finally {
+      dispatch({ type: PhotoActionTypes.SET_LOADING, payload: false });
+    }
+  }, []);
 
-    const xhrMain = new XMLHttpRequest();
-    xhrMain.open("GET", apiUrl);
-    xhrMain.onreadystatechange = () => {
-      if (xhrMain.readyState === 4) {
-        if (xhrMain.status === 200) {
-          const mainData = JSON.parse(xhrMain.responseText);
+  const addPhoto = useCallback(async (photoData) => {
+    dispatch({ type: PhotoActionTypes.SET_LOADING, payload: true });
 
-          const xhrExtra = new XMLHttpRequest();
-          xhrExtra.open("GET", infoUrl);
-          xhrExtra.onreadystatechange = () => {
-            if (xhrExtra.readyState === 4) {
-              dispatch({ type: PhotoActionTypes.SET_LOADING, payload: false });
+    try {
+      const loginId = localStorage.getItem("loginId");
+      const { data } = await api.post("/photos", {
+        post_photo_url: photoData.post_photo_url,
+        post_caption: photoData.post_caption,
+        login_id: loginId,
+      });
 
-              if (xhrExtra.status === 200) {
-                const extraData = JSON.parse(xhrExtra.responseText);
-
-                const combinedData = {
-                  ...mainData,
-                  extraInfo: extraData,
-                };
-
-                dispatch({
-                  type: PhotoActionTypes.SET_CURRENT_IMAGE,
-                  payload: combinedData,
-                });
-              } else {
-                console.warn(
-                  "Dados extras não carregados, usando apenas dados principais"
-                );
-                dispatch({
-                  type: PhotoActionTypes.SET_CURRENT_IMAGE,
-                  payload: mainData,
-                });
-              }
-            }
-          };
-          xhrExtra.send();
-        } else {
-          console.error("Erro ao buscar imagem detalhada");
-          dispatch({ type: PhotoActionTypes.SET_LOADING, payload: false });
-        }
-      }
-    };
-    xhrMain.send();
+      dispatch({ type: PhotoActionTypes.ADD_PHOTOS, payload: [data] });
+    } catch (error) {
+      console.error("Erro ao adicionar foto:", error);
+    } finally {
+      dispatch({ type: PhotoActionTypes.SET_LOADING, payload: false });
+    }
   }, []);
 
   const value = useMemo(
@@ -124,9 +109,10 @@ export const PhotoProvider = ({ children }) => {
       ...state,
       listPhotos,
       getImageDetails,
+      addPhoto,
       dispatch,
     }),
-    [state, listPhotos, getImageDetails]
+    [state, listPhotos, getImageDetails, addPhoto]
   );
 
   return (

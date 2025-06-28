@@ -11,11 +11,11 @@ const PhotoPost = database.define(
       autoIncrement: true,
     },
     post_photo_url: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
       allowNull: false,
     },
     post_caption: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
       allowNull: true,
     },
     post_created_at: {

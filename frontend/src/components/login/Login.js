@@ -23,12 +23,13 @@ export default function Login() {
         }
       );
 
-      const { accessToken, loginName } = response.data;
+      const { accessToken, loginName, loginId } = response.data;
 
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("loginName", loginName);
+      localStorage.setItem("loginId", loginId);
 
-      navigate("/galeria");
+      navigate("/");
     } catch (error) {
       if (error.response) {
         setErrorMsg(error.response.data.error || "Erro no login");

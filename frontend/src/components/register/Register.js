@@ -25,7 +25,7 @@ export default function Register() {
         }
       );
 
-      if (!response.ok) {
+      if (response.status !== 201) {
         const errorData = await response.json();
         alert(`Erro no cadastro: ${errorData.error || "Tente novamente."}`);
         return;

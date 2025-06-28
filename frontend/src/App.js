@@ -1,13 +1,19 @@
 import React from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./App.css";
 import AppRoutes from "./routes";
 
 function App() {
   const location = useLocation();
+  const navigate = useNavigate();
   const token = localStorage.getItem("accessToken");
   const isAuthPage = location.pathname === "/login" || location.pathname === "/cadastro";
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    navigate("/login");
+  };
 
   return (
     <>
@@ -17,13 +23,14 @@ function App() {
             <Navbar.Brand as={Link} to="/">
               PhotoAlbum
             </Navbar.Brand>
-            <Nav>
+            <Nav className="ms-auto">
               <Nav.Link as={Link} to="/">
                 Home
               </Nav.Link>
               <Nav.Link as={Link} to="/galeria">
                 Galeria
               </Nav.Link>
+              <Nav.Link onClick={handleLogout}>Sair</Nav.Link>
             </Nav>
           </Container>
         </Navbar>

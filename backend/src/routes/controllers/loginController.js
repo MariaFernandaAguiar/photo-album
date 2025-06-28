@@ -116,7 +116,7 @@ exports.login = async (req, res) => {
     .then((login) => {
       if (login) {
         if (loginPassword === login.login_password) {
-          const token = jwt.sign({ user: loginEmail }, process.env.JWT_KEY, {
+          const token = jwt.sign({ user: loginEmail, login_id: login.login_id }, process.env.JWT_KEY, {
             expiresIn: 10000,
           });
 

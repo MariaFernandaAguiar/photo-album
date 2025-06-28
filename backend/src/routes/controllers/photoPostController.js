@@ -46,9 +46,9 @@ exports.findOne = async (req, res) => {
 exports.create = async (req, res) => {
   try {
     const novoPost = await PhotoPost.create({
-      post_photo_url: req.body.postPhotoUrl,
-      post_caption: req.body.postCaption,
-      login_id: req.user.id,
+      post_photo_url: req.body.post_photo_url,
+      post_caption: req.body.post_caption,
+      login_id: req.body.login_id,
     });
     return res.status(201).json(novoPost);
   } catch (error) {

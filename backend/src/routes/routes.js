@@ -4,6 +4,6 @@ const loginRouter = require("./loginRoutes");
 const photoPostRouter = require("./photoPostRouter");
 
 router.use("/login", loginRouter);
-router.use("/photo-post", photoPostRouter);
+router.use("/photos", photoPostRouter);
 
 module.exports = router;
