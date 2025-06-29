@@ -35,10 +35,10 @@ const PhotoDetails = () => {
     <Container className="mt-4">
       <Row>
         <Col md={6}>
-          <Image src={currentImage?.download_url} fluid rounded />
+          <Image src={currentImage?.post_photo_url} fluid rounded />
           <div className="mt-3">
             <Button
-              href={currentImage?.download_url}
+              href={currentImage?.post_photo_url}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -53,15 +53,14 @@ const PhotoDetails = () => {
               <strong>ID:</strong> {currentImage?.id}
             </ListGroup.Item>
             <ListGroup.Item>
-              <strong>Autor:</strong> {currentImage?.author}
+              <strong>Autor:</strong> {currentImage?.login.login_id}
             </ListGroup.Item>
             <ListGroup.Item>
-              <strong>Dimensões:</strong> {currentImage?.width} x{" "}
-              {currentImage?.height}
+              <strong>Legenda:</strong> {currentImage?.post_caption}
             </ListGroup.Item>
             <ListGroup.Item>
               <a
-                href={currentImage?.url}
+                href={currentImage?.post_photo_url}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -89,7 +88,7 @@ const PhotoDetails = () => {
                     </ListGroup.Item>
                     <ListGroup.Item>
                       <a
-                        href={currentImage?.extraInfo.download_url}
+                        href={currentImage?.extraInfo.post_photo_url}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
