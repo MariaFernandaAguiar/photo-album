@@ -96,7 +96,7 @@ export const PhotoProvider = ({ children }) => {
         login_id: loginId,
       });
 
-      dispatch({ type: PhotoActionTypes.ADD_PHOTOS, payload: [data] });
+      listPhotos();
     } catch (error) {
       console.error("Erro ao adicionar foto:", error);
     } finally {
