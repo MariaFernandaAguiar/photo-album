@@ -15,6 +15,12 @@ const sequelize = new Sequelize(
     host: database_host,
     port: database_port,
     dialect: database_dialect,
+    pool: {
+      max: 10,
+      min: 0,
+      acquire: 30000,
+      idle: 10000,
+    },
   }
 );
 

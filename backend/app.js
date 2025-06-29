@@ -6,10 +6,29 @@ const logger = require("morgan");
 const session = require("express-session");
 require("dotenv").config();
 const cors = require("cors");
+const helmet = require("helmet");
+const xss = require("xss-clean");
+const rateLimit = require("express-rate-limit");
+const morgan = require("morgan");
+const compression = require("compression");
 
 const indexRouter = require("./src/routes/routes");
 
 const app = express();
+
+app.use(helmet());
+app.use(xss());
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+});
+
+app.use(limiter);
+
+app.use(morgan("combined"));
+
+app.use(compression());
 
 app.use(logger("dev"));
 app.use(express.json());
