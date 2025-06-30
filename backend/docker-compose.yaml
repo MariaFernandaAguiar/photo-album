@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: .
+    container_name: express_app
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "3333:3333"
+
+  db:
+    image: postgres:16
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    ports:
+      - "5432:5432"

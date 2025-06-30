@@ -21,7 +21,7 @@ const Home = () => {
       <Row className="mb-4">
         <Col md={6}>
           <Card>
-            <Card.Body style={{ height: "130px" }}>
+            <Card.Body style={{ minHeight: "130px", marginBottom: "10px" }}>
               <Card.Title>🌍 Sobre o projeto</Card.Title>
               <Card.Text>
                 Este projeto foi desenvolvido em React como parte de um estudo
@@ -33,7 +33,7 @@ const Home = () => {
         </Col>
         <Col md={6}>
           <Card>
-            <Card.Body style={{ height: "130px" }}>
+            <Card.Body style={{ minHeight: "130px", marginBottom: "10px" }}>
               <Card.Title>📸 Fonte das Imagens</Card.Title>
               <Card.Text>
                 As imagens são fornecidas pela API pública do{" "}
